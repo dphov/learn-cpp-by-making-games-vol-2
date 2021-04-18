@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(.)
 
 add_executable(${PROJECT_NAME}
-         "lesson_17/Destructors.cpp")
+         "lesson_19/ThisPointer.cpp")
 
 set_property(TARGET ${PROJECT_NAME}
     PROPERTY
