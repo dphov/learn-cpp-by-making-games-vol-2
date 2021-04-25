@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(.)
 
 add_executable(${PROJECT_NAME}
-         "lesson_20/RefInClass.cpp")
+         "lesson_27/StaticKeywordWithClasses.cpp")
 
 set_property(TARGET ${PROJECT_NAME}
     PROPERTY
