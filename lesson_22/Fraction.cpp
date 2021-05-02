@@ -1,4 +1,6 @@
+#include <sstream>
 #include <iostream>
+
 
 class Fraction
 {
@@ -7,21 +9,85 @@ public:
 	Fraction(int a, int b): mNumerator(a), mDenominator(b)
 	{
 	}
-	int Add() {}
-	int	Substract() {}
-	int	Multiply() {}
-	int Divide() {}
-	void CompareFractions(Fraction * a, Fraction * b) {}
+	static Fraction Add(const Fraction & a, const Fraction & b) {
+		std::cout << Fraction::AsString(a) << " + " << Fraction::AsString(b) << std::endl;
+
+
+		Fraction temp;
+		temp.mNumerator = a.mNumerator + b.mNumerator;
+
+		if (a.mDenominator == b.mDenominator)
+		{
+			temp.mDenominator = a.mDenominator;
+		}
+		else
+		{
+			throw std::invalid_argument("received non equal denominators");
+		}
+
+		std::cout << "Result: " << Fraction::AsString(temp) << std::endl;
+
+		return temp;
+	}
+	static Fraction Substract(const Fraction& a, const Fraction& b)   {
+		std::cout << Fraction::AsString(a) << " - " << Fraction::AsString(b) << std::endl;
+
+		Fraction temp;
+		temp.mNumerator = a.mNumerator - b.mNumerator;
+
+		if (a.mDenominator == b.mDenominator)
+		{
+			temp.mDenominator = a.mDenominator;
+		}
+		else
+		{
+			throw std::invalid_argument("received non equal denominators");
+		}
+		std::cout << "Result: " << Fraction::AsString(temp) << std::endl;
+
+		return temp;
+	}
+	static Fraction Multiply(const Fraction& a, const Fraction& b)   {}
+	static Fraction Divide(const Fraction& a, const Fraction& b)   {}
+	void CompareFractions(Fraction* a, Fraction* b) const {}
+
 	/* Prints fraction in formatted manner as "1/2"*/
-	void Display() {}
+	static std::string AsString(const Fraction& a)
+	{
+		std::ostringstream ConvertNumerator;
+		std::ostringstream ConvertDenominator;
+
+		ConvertNumerator << a.mNumerator;
+		ConvertDenominator << a.mDenominator;
+
+		std::string tempNumerator = ConvertNumerator.str();
+		std::string tempDenominator = ConvertDenominator.str();
+
+		std::string temp = tempNumerator + "/" + tempDenominator;
+
+		return temp;
+	}
+
+	static void Display(Fraction & a) {
+		std::cout << a.mNumerator << "/" << a.mDenominator << std::endl;
+	}
+
 private:
 	int mNumerator;
 	int mDenominator;
+
+	Fraction GreatestCommonDivisor() {}
 };
 
 int main()
 {
-	Fraction 
-	std::cout << "Hi" << std::endl;
+	Fraction fObj1 = Fraction(1, 4);
+	Fraction fObj2 = Fraction(2, 4);
+	Fraction::Display(fObj1);
+	Fraction::Display(fObj2);
+
+	Fraction result = Fraction::Add(fObj1, fObj2);
+	Fraction result2 = Fraction::Substract(result, fObj2);
+
 	return 0;
 }
