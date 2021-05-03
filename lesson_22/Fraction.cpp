@@ -47,7 +47,18 @@ public:
 
 		return temp;
 	}
-	static Fraction Multiply(const Fraction& a, const Fraction& b)   {}
+	static Fraction Multiply(const Fraction& a, const Fraction& b)   {
+		std::cout << Fraction::AsString(a) << " * " << Fraction::AsString(b) << std::endl;
+
+		Fraction temp;
+		temp.mNumerator = a.mNumerator * b.mNumerator;
+		temp.mDenominator = a.mDenominator * b.mDenominator;
+		// Simplify the fraction by dividing throughout by their GCD
+
+		std::cout << "Result: " << Fraction::AsString(temp) << std::endl;
+		return temp;
+
+	}
 	static Fraction Divide(const Fraction& a, const Fraction& b)   {}
 	void CompareFractions(Fraction* a, Fraction* b) const {}
 
@@ -76,7 +87,7 @@ private:
 	int mNumerator;
 	int mDenominator;
 
-	Fraction GreatestCommonDivisor() {}
+	Fraction GreatestCommonDivisor(const int a, const int b) {}
 };
 
 int main()
@@ -88,6 +99,11 @@ int main()
 
 	Fraction result = Fraction::Add(fObj1, fObj2);
 	Fraction result2 = Fraction::Substract(result, fObj2);
+
+    Fraction fObj3 = Fraction(2, 3);
+	Fraction fObj4 = Fraction(9, 4);
+	Fraction result3 = Fraction::Multiply(fObj3, fObj4);
+
 
 	return 0;
 }
