@@ -53,7 +53,14 @@ public:
 		Fraction temp;
 		temp.mNumerator = a.mNumerator * b.mNumerator;
 		temp.mDenominator = a.mDenominator * b.mDenominator;
+
+		// Calculate GCD
+		int gcd = GreatestCommonDivisor(& temp);
+
 		// Simplify the fraction by dividing throughout by their GCD
+		temp.mNumerator = temp.mNumerator / gcd;
+		temp.mDenominator = temp.mDenominator / gcd;
+
 
 		std::cout << "Result: " << Fraction::AsString(temp) << std::endl;
 		return temp;
@@ -82,23 +89,29 @@ public:
 	static void Display(Fraction & a) {
 		std::cout << a.mNumerator << "/" << a.mDenominator << std::endl;
 	}
+	static int GreatestCommonDivisor(Fraction * f) {
+		return GreatestCommonDivisor(f->mNumerator, f->mDenominator);
+	}
+
+	static int GreatestCommonDivisor(const int a, const int b);
+
 
 private:
 	int mNumerator;
 	int mDenominator;
 
-	Fraction GreatestCommonDivisor(const int a, const int b) {}
 };
+
 
 int main()
 {
-	Fraction fObj1 = Fraction(1, 4);
-	Fraction fObj2 = Fraction(2, 4);
-	Fraction::Display(fObj1);
-	Fraction::Display(fObj2);
+//	Fraction fObj1 = Fraction(1, 4);
+//	Fraction fObj2 = Fraction(2, 4);
+//	Fraction::Display(fObj1);
+//	Fraction::Display(fObj2);
 
-	Fraction result = Fraction::Add(fObj1, fObj2);
-	Fraction result2 = Fraction::Substract(result, fObj2);
+//	Fraction result = Fraction::Add(fObj1, fObj2);
+//	Fraction result2 = Fraction::Substract(result, fObj2);
 
     Fraction fObj3 = Fraction(2, 3);
 	Fraction fObj4 = Fraction(9, 4);
@@ -106,4 +119,26 @@ int main()
 
 
 	return 0;
+}
+
+/*
+	Greatest Common Divisor function
+	based on Euclidean Algorithm
+*/
+int Fraction::GreatestCommonDivisor(const int a, const int b)
+{
+	if (a == b)
+	{
+		return a;
+	}
+
+	if (a > b)
+	{
+		return Fraction::GreatestCommonDivisor(a - b, b);
+	}
+
+	if (b > a)
+	{
+		return Fraction::GreatestCommonDivisor(a, b - a);
+	}
 }
