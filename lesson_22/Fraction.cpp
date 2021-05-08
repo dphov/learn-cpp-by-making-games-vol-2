@@ -14,18 +14,23 @@ public:
 
 
 		Fraction temp;
-		temp.mNumerator = a.mNumerator + b.mNumerator;
 
-		if (a.mDenominator == b.mDenominator)
-		{
-			temp.mDenominator = a.mDenominator;
-		}
-		else
-		{
-			throw std::invalid_argument("received non equal denominators");
-		}
+		//1. Convert to a common denominator using the lowest common multiple
+		
+		temp.mDenominator = Fraction::LowestCommonMultiple(a.mDenominator, b.mDenominator);
+		
+//		temp.mNumerator = a.mNumerator + b.mNumerator;
 
-		std::cout << "Result: " << Fraction::AsString(temp) << std::endl;
+//		if (a.mDenominator == b.mDenominator)
+	//	{
+		//	temp.mDenominator = a.mDenominator;
+		//}
+		//else
+	//	{
+		//	throw std::invalid_argument("received non equal denominators");
+		//}
+
+		//std::cout << "Result: " << Fraction::AsString(temp) << std::endl;
 
 		return temp;
 	}
@@ -94,7 +99,7 @@ public:
 	}
 
 	static int GreatestCommonDivisor(const int a, const int b);
-
+	static int LowestCommonMultiple(const int a, const int b);
 
 private:
 	int mNumerator;
@@ -116,7 +121,7 @@ int main()
     Fraction fObj3 = Fraction(2, 3);
 	Fraction fObj4 = Fraction(9, 4);
 	Fraction result3 = Fraction::Multiply(fObj3, fObj4);
-
+	// std::cout << Fraction::LowestCommonMultiple(36, 30) << std::endl;
 
 	return 0;
 }
@@ -141,4 +146,14 @@ int Fraction::GreatestCommonDivisor(const int a, const int b)
 	{
 		return Fraction::GreatestCommonDivisor(a, b - a);
 	}
+}
+
+/*
+	lcm(a, b) = ( a * b ) / gcd(a, b)
+*/
+int Fraction::LowestCommonMultiple(const int a, const int b)
+{
+	int gcdResult = Fraction::GreatestCommonDivisor(a, b);
+	int lcm = (a * b) / gcdResult;
+	return lcm;
 }
