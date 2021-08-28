@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.2)
 project(learn_cpp_by_making_games_vol_2)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 include_directories(.)
 

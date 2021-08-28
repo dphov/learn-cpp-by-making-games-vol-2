@@ -5,11 +5,16 @@ using namespace std;
 
 class Fraction
 {
+    int mNumerator;
+    int mDenominator;
 public:
-	Fraction(): Fraction(0,1){}
+
+	Fraction(): Fraction(0,1){};
 	Fraction(int a, int b): mNumerator(a), mDenominator(b)
 	{
 	}
+
+	//auto operator<=>(const Fraction&) = default;
 
 	Fraction GetFraction(int a, int b) {
 	    return {a, b};
@@ -105,9 +110,6 @@ public:
 	    return this->Simplify(numerator, denominator);
 	}
 
-	void CompareFractions(Fraction * a, Fraction * b) {}
-
-
 	void Display() const {
 	    if (this->mDenominator == 1) {
 	        std::cout << this->mNumerator << std::endl;
@@ -117,9 +119,29 @@ public:
 	        std::cout << this->mNumerator << "/" << this->mDenominator  << std::endl;
 	    }
 	}
-private:
-	int mNumerator;
-	int mDenominator;
+
+	bool operator==(const Fraction& rhs) const
+	{
+	    return this->mNumerator == rhs.mNumerator && this->mDenominator == rhs.mDenominator;
+	}
+
+	bool operator<(const Fraction& rhs) const
+	{
+	    // same denomnator
+	    if (this->mDenominator == rhs.mDenominator)
+	    {
+	        cout << "same denominator" << endl;
+            return this->mNumerator < rhs.mNumerator;
+	    }
+	    else {
+	        return this->mNumerator * rhs.mDenominator < rhs.mNumerator * this->mDenominator;
+	    }
+	}
+
+	bool operator!=(const Fraction& rhs) const { return !(*this == rhs); }
+    bool operator>(const Fraction& rhs) const { return rhs < *this; }
+    bool operator<=(const Fraction& rhs) const { return !(*this > rhs); }
+    bool operator>=(const Fraction& rhs) const { return !(*this < rhs); }
 };
 
 int main()
@@ -212,5 +234,10 @@ int main()
     Fraction d3d4result = FCalc.Divide(D3,D4);
 
     d3d4result.Display();
+
+    cout << "is D4 == D3: " << std::boolalpha << (D4 == D3) << endl;
+    cout << "is 1/3 < 2/3: " << std::boolalpha << (Fraction(1,3) < Fraction(2, 3)) << endl;
+    cout << "is 5/6 > 11/15: " << std::boolalpha << (Fraction(5,6) > Fraction(11, 15)) << endl;
+
 	return 0;
 }
